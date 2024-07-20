@@ -140,6 +140,23 @@ select * from customers order by creditlimit desc;
 -- count
 select count(creditlimit) from customers order by creditlimit desc;
 
+-- where
+-- and 
+select * from customers where city = "singapore" and creditlimit > 40000;
 
+-- or 
+select * from customers where city = "singapore" or creditlimit > 40000;
 
+-- count 
+select count(creditlimit) from customers where city = "singapore" or creditlimit > 40000;
+
+-- fetch data 
+select customername , city , phone , state , country , creditlimit , creditlimit + 500 as total_amount from customers where country ="USA" and creditlimit >50000; 
+
+-- distinct 
+select distinct city from customers;
+
+select distinct count(city) from customers;
+
+select distinct count(state) from customers;
 
