@@ -160,3 +160,124 @@ select distinct count(city) from customers;
 
 select distinct count(state) from customers;
 
+use classicmodels;
+select * from customers;
+select * from customers where not country = "USA";
+select * from customers where not country like "U%";
+
+-- Having
+
+select creditlimit , count(creditlimit) as total_count from customers group by creditlimit having min(creditlimit);
+
+-- SQL Keys
+
+-- SQL - Primary Key : 
+show databases;
+use trupti;
+show tables;
+select * from employee;
+
+-- FOREIGN KEY
+
+CREATE TABLE a2z_Customers (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50)
+);
+
+CREATE TABLE a2zOrders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES a2z_Customers(CustomerID)
+); 
+
+select * from a2z_customers;
+select * from a2zorders;
+
+INSERT INTO a2z_Customers (CustomerID, FirstName, LastName)
+VALUES
+    (1, 'Pankaj', 'Sharma'),
+    (2, 'Nishant', 'Patel');
+    
+INSERT INTO a2z_Customers (CustomerID, FirstName, LastName)
+VALUES
+    (3, 'Joy', 'Sharma');
+    
+INSERT INTO a2zOrders (OrderID, CustomerID, OrderDate)
+VALUES
+    (101, 1, '2023-01-15'),
+    (102, 2, '2023-02-20'); 
+    
+INSERT INTO a2zOrders (OrderID, CustomerID, OrderDate)
+VALUES
+    (103, 3, '2023-01-15');
+
+select * from a2z_customers;    
+select * from a2zorders , a2z_customers;
+
+-- functions 
+-- count()
+-- sum()
+-- min()
+-- max()
+
+use classicmodels;
+select * from customers;
+
+select count(city) from customers;
+select sum(creditlimit) from customers;
+select min(creditlimit) from customers;
+select max(creditlimit) from customers;
+
+-- Date and Time Functions
+
+-- CURDATE()
+select curdate();
+
+
+
+select * from orders;
+-- DATEDIFF(date1, date2)
+select ordernumber, orderdate , datediff(shippeddate ,orderdate) as difference_date from orders;
+select ordernumber , customernumber , datediff(curdate() , orderdate) as take_time from orders;
+
+-- DATE_ADD(date, INTERVAL value unit)
+-- SELECT event_name, event_date, DATE_ADD(event_date, INTERVAL 7 DAY) AS new_date FROM events; 
+select ordernumber , shippeddate, date_add(shippeddate , interval 10 day) as new_update from orders;   
+select ordernumber , shippeddate, date_add(shippeddate , interval 10 month) as new_update from orders;   
+select ordernumber , shippeddate, date_add(shippeddate , interval 10 year) as new_update from orders;
+
+-- DATE_SUB(date, INTERVAL value unit)  
+select ordernumber , shippeddate, date_sub(shippeddate , interval 10 day) as new_update from orders;   
+select ordernumber , shippeddate, date_sub(shippeddate , interval 10 month) as new_update from orders;   
+select ordernumber , shippeddate, date_sub(shippeddate , interval 10 year) as new_update from orders;
+
+-- DATE_FORMAT(date, format)
+SELECT ordernumber,orderdate, DATE_FORMAT(orderdate, '%Y-%m-%d') AS formatted_date FROM orders; 
+SELECT ordernumber,orderdate, DATE_FORMAT(orderdate, '%d-%m-%y') AS formatted_date FROM orders; 
+SELECT ordernumber,orderdate, DATE_FORMAT(orderdate, '%m-%Y-%d') AS formatted_date FROM orders; 
+SELECT ordernumber,orderdate, DATE_FORMAT(orderdate, '%Y-%m') AS formatted_date FROM orders; 
+SELECT ordernumber,orderdate, DATE_FORMAT(orderdate, '%Y') AS formatted_date FROM orders; 
+
+SELECT NOW() AS current_datetime;
+SELECT CURTIME();
+
+
+select * from customers;
+-- CONCAT()
+SELECT customernumber,CONCAT(contactfirstname, ' ', contactlastname) AS full_name FROM customers;
+
+-- SUBSTRING() - ms sql
+SELECT SUBSTRING(email, 1, CHARINDEX('@', email) - 1) AS username FROM employees;
+show tables;
+select * from employees;
+
+-- UPPER()
+SELECT UPPER(firstname) AS name_uppercase FROM employees;
+
+-- LEFT()
+SELECT LEFT(firstname, 4) AS first_name_short FROM employees;
+SELECT distinct firstname , CONCAT(LEFT(firstname, 4),"@p4n.in") AS first_name_short FROM employees;
+
+
