@@ -280,4 +280,71 @@ SELECT UPPER(firstname) AS name_uppercase FROM employees;
 SELECT LEFT(firstname, 4) AS first_name_short FROM employees;
 SELECT distinct firstname , CONCAT(LEFT(firstname, 4),"@p4n.in") AS first_name_short FROM employees;
 
+-- joins 
+
+use trupti;
+show tables;
+CREATE TABLE Custom (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE customOrders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    TotalAmount DECIMAL(10, 2)
+);
+
+INSERT INTO Custom (CustomerID, FirstName, LastName, Email)
+VALUES
+    (1, 'Pankaj', 'Sharma', 'pankaj@codeswithpankaj.com'),
+    (2, 'Nishant', 'Patel', 'nishant@codeswithpankaj.com'),
+    (3, 'Kiran', 'Desai', 'kiran@codeswithpankaj.com'),
+    (4, 'Tanvi', 'Mehta', 'tanvi@codeswithpankaj.com'),
+    (5, 'Kritek', 'Singh', 'kritek@codeswithpankaj.com');
+    
+    INSERT INTO customOrders (OrderID, CustomerID, OrderDate, TotalAmount)
+VALUES
+    (101, 1, '2023-01-15', 250.00),
+    (102, 2, '2023-02-20', 120.50),
+    (103, 3, '2023-03-10', 320.75),
+    (105, 4, '2023-05-12', 210.00);
+    
+    
+    select * from custom;
+    select * from customOrders;
+    
+    -- left join 
+SELECT c.FirstName, c.LastName, o.OrderDate
+FROM Custom AS c
+LEFT JOIN customOrders AS o ON c.CustomerID = o.CustomerID;
+
+-- right join
+
+SELECT c.FirstName, c.LastName, o.OrderDate
+FROM Custom AS c
+right JOIN customOrders AS o ON c.CustomerID = o.CustomerID;
+
+-- inner join 
+SELECT c.FirstName, c.LastName, o.OrderDate
+FROM Custom AS c
+inner JOIN customOrders AS o ON c.CustomerID = o.CustomerID;
+
+-- full join
+
+ -- left join 
+SELECT c.FirstName, c.LastName, o.OrderDate
+FROM Custom AS c
+LEFT JOIN customOrders AS o ON c.CustomerID = o.CustomerID
+
+union
+-- right join
+
+SELECT c.FirstName, c.LastName, o.OrderDate
+FROM Custom AS c
+right JOIN customOrders AS o ON c.CustomerID = o.CustomerID;
+
 
